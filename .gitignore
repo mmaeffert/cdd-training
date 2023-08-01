@@ -1,0 +1,4 @@
+mysql/
+backend/node_modules
+frontend/.vscode
+frontend/.angular

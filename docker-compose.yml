@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: pw
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pw
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"  # Map MySQL default port
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: user
+      PMA_PASSWORD: pw
+    restart: unless-stopped
